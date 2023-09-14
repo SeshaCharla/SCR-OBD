@@ -1,0 +1,64 @@
+\documentclass[letterpaper, 11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{inputenc}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{extarrows}
+\usepackage{xcolor}
+\usepackage{lscape}
+\usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage{leftindex}
+\usepackage{algorithm2e}
+\SetKwComment{Comment}{/* }{ */}
+%\RestyleAlgo{ruled}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    }
+
+% Listings
+\usepackage{listings}
+\usepackage{color}
+\input{lst_style.tex}
+
+% NewCommands
+\newcommand{\peq}{ \mathrel{+}= }
+\newcommand{\muleq}{ \mathrel{*}= }
+\newcommand{\sign}{ \text{sign}}
+\newcommand{\bm}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\newcommand{\lx}[2]{\leftindex #1 {#2}}
+\newcommand{\norm}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\itbf}[1]{\textit{\textbf{#1}}}
+\newcommand{\mdet}[1]{\norm{\begin{matrix} #1 \end{matrix}}}
+\newcommand{\pbox}[1]{\fbox{\begin{minipage}{\textwidth} #1 \end{minipage}}}
+\newcommand{\lstln}[1]{\lstinline|#1|}
+
+
+
+\title{Note on SCR-OBD algorithm developement}
+\author{Sesha Charla}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\newpage
+%===============================================================================
+$$[8/17/23]$$
+\input{secs/intro.tex}
+
+\newpage
+\nocite{}
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\end{document}
