@@ -1,0 +1,77 @@
+\section{SCR Reactions and Dynamics}
+The SCR reactions involve reduction of $NO_x$ into $N_2$ and $H_2 O$ \cite{jain2023diagnostics}.
+
+\subsection{SCR Reactions}
+Eley Rideal reaction mechanism \cite{hsieh2011development}
+\cite{yuan2015diesel}, \cite{nova2014urea} is considered for the interpreting
+the SCR reactions. The mechanism involves the following reactions:
+
+\begin{align}
+    NH_2 - CO - NH_2 (liquid) &\longrightarrow NH_2 - CO - NH_2^* + x H_2 O
+                & &[\text{AdBlue evaporation}] \label{eqn::urea_1} \\
+    NH_2 - CO - NH_2^*  &\longrightarrow  HNCO + NH_3
+                & &[\text{Urea decomposition}] \label{eqn::urea_2}\\
+    HNCO + H_2O &\longrightarrow NH_3 + CO_2
+                & &[\text{Isocynic acid hydrolysis}] \label{eqn::urea_3}\\
+    %===
+    NH_3 + \theta_{free} &\longleftrightarrow NH_3(ads)
+                & &[\text{Adsorption/Desorption}] \label{eqn::ads}\\
+    %===
+    4 NH_3 (ads) + 4 NO + O_2 &\longrightarrow 4 N_2 + 6 H_2O
+                              & &[\text{Standard SCR reaction}]
+                              \label{eqn::std_scr}\\
+    %===
+    2 NH_3 (ads) +  NO + N O_2 &\longrightarrow 2 N_2 + 3 H_2O
+                              & &[\text{Fast SCR reaction}]
+                              \label{eqn::fast_scr}\\
+    %===
+    4 NH_3 (ads) + 3N O_2 &\longrightarrow 3.5 N_2 + 6 H_2O
+                              & &[\text{Slow SCR reaction}]
+                              \label{eqn::slow_scr}\\
+    %===
+    4 NH_3 + 3 O_2 &\longrightarrow 2 N_2 + 6 H_2O
+                         & &[\text{AMOX with/without ASC}]
+                         \label{eqn::amox_N2}\\
+    4 NH_3 + 5 O_2 &\longrightarrow 4 NO + 6 H_2 O
+                         & &[\text{AMOX with/without ASC}]
+                         \label{eqn::amox_NO}\\
+    2 NH_3 + 2 O_2 &\longrightarrow N_2O + 3 H_2O
+                         & &[\text{AMOX with/without ASC}]
+                         \label{eqn::amox_N20}\\
+    %==
+    2 NO + O_2 &\longrightarrow 2 NO_2
+                        & &[\text{NO oxidation}]
+                        \label{eqn::NOX}
+\end{align}
+
+
+The PDE model for SCR reaction kinematics \cite{nova2014urea} is reduced to ODE model \cite{devarakonda2008adequacy} using by assuming "continuous stirred tank reactor (CSTR)" model (Control volume approach).
+
+\subsection{Ammonia input (Urea Dosing) dynamics}
+The actual input to the system is urea from AdBlue ($32.5\%$ aqueous urea
+solution) injection that converted to ammonia (through reactions:
+(\ref{eqn::urea_1}), (\ref{eqn::urea_2}) and (\ref{eqn::urea_3})). This can be modelled by the following eqation \cite{nova2014urea}:
+\begin{align*}
+    \dot C_{NH_3, in} &= - \frac{1}{\tau} C_{NH_3, in} + 2 \frac{1}{\tau} \frac{ \eta u_{Adblue}}{N_{urea} F}\\
+    \text{where, } \quad &\\
+    \tau &- \text{Time constant}\\
+    u_{AdBlue} &- \text{Mass injection rate of the AdBlue solution}\\
+    \eta &- \text{Mass fraction of urea in the solution}\\
+    N_{urea} &- \text{Atomic number of urea}\\
+    F &- \text{Exhaust flow rate of the catalyst } m^3/s
+\end{align*}
+The above model is re-parametrized as follows:
+\begin{align*}
+    \dot C_{NH_3, in} &= \frac{1}{\tau} \lr{ -C_{NH_3, in} +\eta_{urea} C_{NH_3, ideal}} \\
+    \text{where, }\qquad &\\
+    \eta_{urea} &- \text{urea} \rightarrow NH_3 \text{ conversion efficiency}\\
+    \tau &- \text{urea} \rightarrow NH_3 \text{ time-constant}\\
+    C_{NH_3, ideal} &- \text{ideal $C_{NH_3, in}$ if $\eta_{urea} = 1$ (constant parameter obtained through calibration)}
+\end{align*}
+In the present work, $C_{NH_3, in}$ is considered as the input instead of AdBlue
+injection as its dynamics are completely decoupled from that of other states.
+Further, it is observed that AdBlue is completely converted to Ammonia at the
+very upstream part of the SCR catalyst \cite{hsieh2011development}.
+
+\input{secs/4state_model.tex}
+%\input{secs/3state_model.tex}

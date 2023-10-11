@@ -1,5 +1,6 @@
 \documentclass[letterpaper, 11pt]{article}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{float}
 \usepackage{inputenc}
@@ -39,7 +40,8 @@
 \newcommand{\mdet}[1]{\norm{\begin{matrix} #1 \end{matrix}}}
 \newcommand{\pbox}[1]{\fbox{\begin{minipage}{\textwidth} #1 \end{minipage}}}
 \newcommand{\lstln}[1]{\lstinline|#1|}
-
+\newcommand{\lr}[1]{\left( #1 \right)}
+\newcommand{\lrb}[1]{\left[ #1 \right]}
 
 
 \title{Note on SCR-OBD algorithm developement}
@@ -51,11 +53,14 @@
 \maketitle
 \tableofcontents
 \newpage
+\
 \newpage
 %===============================================================================
-$$[8/17/23]$$
 \input{secs/intro.tex}
-
+%===============================================================================
+\newpage
+\input{secs/SCR_model.tex}
+%===============================================================================
 \newpage
 \nocite{}
 \bibliographystyle{unsrt}

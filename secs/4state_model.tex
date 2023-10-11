@@ -1,0 +1,96 @@
+\subsection{4 State Dynamic Model}
+A four state nonlinear model for the above reactions can be developed using
+Arrhenius equations, CSTR assumption and further simplification based on the
+following assumptions:
+
+\subsubsection{Assumptions}
+\begin{enumerate}
+    \item Slow SCR reaction is neglected.
+    \begin{itemize}
+        \item The flow rate of the exhaust would ensure that the not a significant concentration of tail-pipe exhaust components are due to the slow SCR reaction \cite{nova2014urea}.
+    \end{itemize}
+
+    \item Mass transfer is neglected. That means the chemical kinetics in the catalyst are reaction controlled.
+    \begin{itemize}
+        \item The standard SCR reaction rate is faster than the flow rate of the exhaust fluids.
+    \end{itemize}
+
+    \item Nitrogen selectivity for ammonia oxidation is $100\%$.
+    \begin{itemize}
+        \item This assumption is relaxed by including algebraic relationship between selectivity and the temperature (ASC model \cite{jain2023diagnostics}).
+    \end{itemize}
+
+    \item Reaction rates are assumed to be a function of the gas phase concentration of $NO_x$ and ammonia storage.
+\end{enumerate}
+
+
+\subsubsection{Reaction Rates}
+The reaction rates for the processes being considered are modelled using
+Arrhenius equations as follows:
+\begin{enumerate}
+\item Standard SCR Reaction (\ref{eqn::std_scr}):
+$ R_1 = \underbrace{k_1 \exp\lr{-\frac{E_1}{RT}}}_{r_1} C_{NO} C_{O_2} \theta \Theta V^2 $
+
+\item Fast SCR Reaction (\ref{eqn::fast_scr}):
+$ R_2 = k_2 \exp\lr{-\frac{E_2}{RT}} C_{NO} C_{N_2O} \theta \Theta V^2 $
+
+\item Ammonia Oxidation (\ref{eqn::amox_N2}):
+$ R_3 = \underbrace{k_3 \exp\lr{-\frac{E_3}{RT}}}_{r_3} C_{O_2} \theta \Theta
+V $
+
+\item Ammonia Adsorption/Desorption (\ref{eqn::ads}):
+\begin{enumerate}
+    \item Forward: $ R_{4F} = \underbrace{k_{4F} \exp \lr{-\frac{E_{4F}}{RT}}}_{r_{4F}} C_{NH_3} \lr{1-\theta} \Theta V$
+
+    \item Reverse: $ R_{4R} = \underbrace{k_{4R} \exp \lr{-\frac{E_{4R}}{RT}}}_{r_{4R}} \theta
+\Theta V $
+\end{enumerate}
+
+\item NO oxidation (\ref{eqn::NOX}):
+$ R_5 = \underbrace{k_5 \exp \lr{- \frac{E_5}{RT}}}_{r_5} C_{NO} C_{O_2} V^2 $
+\end{enumerate}
+
+Where,
+\begin{align*}
+    \theta &- NH_3 \text{ storage capacity fraction in SCR } = \frac{\text{Moles of $NH_3$ adsorbed}}{\text{Total moles of $NH_3$ that can be adsorbed}}\\
+    \Theta &- \text{Ammonia storage capacity} (moles)\\
+    \Theta &= S_1 e^{S_2 T} \qquad \qquad \begin{matrix*}[l]
+                S_1, S_2 &-& \text{Aging parameters of the catalyst (positve constants)}
+            \end{matrix*}\\
+    E_i &- \text{Activation Energy of $i^{th}$ reaction}\\
+    k_i &- \text{Pre-exponential factor}\\
+    R &- \text{Universal gas constant}\\
+    T &- \text{Temperature}\\
+    C_{\{\bullet\}} &- \text{Concentration} \lr{mol/m^3}\\
+    V &- \text{Volume of the exhaust gas in the substrate\cite{devarakonda2009model}} \lr{m^3}\\
+    V_e &= \epsilon A_c L_{cat}\\
+        &\begin{matrix*}[l]
+        A_c &-& \text{Open frontal area of the catalyst}\\
+        L_{cat} &-& \text{Length of the catalyst}\\
+        \epsilon &-& \text{efficiency factor}
+        \end{matrix*}\\
+\end{align*}
+
+\subsubsection{Dynamic model}
+Using above assumptions and definitions, we have the dynamic model \cite{nova2014urea}:
+\begin{align*}
+    \bm{\dot C_{NO} \\
+        \dot C_{NO_2}\\
+        \dot C_{NH_3}\\
+        \dot \theta_{NH_3}\\
+        } &=
+    \bm{
+        -r_1 C_{NO} C_{O_2} \theta_{NH_3} \Theta V
+        - 0.5 r_2 C_{NO} C_{NO_2} \theta_{NH_3} \Theta V
+        -r_5 C_{NO} C_{O_2} V
+        -s_v C_{NO}\\
+        %===
+        -0.5 r_2 C_{NO} C_{NO_2} \theta_{NH_3} \Theta V
+        + r_5 C_{NO} C_{O_2} V
+        -s_v C_{NO_2}\\
+        %===
+        -C_{NH_3} \lrb{\Theta r_{rF} \lr{1 - \theta_{NH_3}} + s_v} + V^{-1} r_{4R} \Theta \theta_{NH_3}\\
+        %===
+    }
+    + s_v \bm{C_{NO, in} \\ C_{NO_2, in} \\ C_{NH_3} \\ 0}
+\end{align*}
