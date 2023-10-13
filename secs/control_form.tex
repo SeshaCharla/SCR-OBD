@@ -1,0 +1,24 @@
+\section{Sensor corss-sensitivity and non-linear control from of the model}
+
+The $NO_x$ sensor is cross-sensitive to ammonia, resulting in the following
+measurement model (output) of the system:
+\begin{align*}
+    y &= C_{NO} + \chi C_{NH_3}
+\end{align*}
+
+We have the state-space model:
+\begin{align*}
+    \bm{\dot C_{NO} \\
+        \dot C_{NH_3}\\
+        \dot \theta_{NH_3}\\
+        } =
+    \bm{
+        -r_1 C_{NO} C_{O_2} \theta_{NH_3} \Theta V
+        -s_v C_{NO}\\
+        %===
+        -C_{NH_3} \lrb{\Theta r_{rF} \lr{1 - \theta_{NH_3}} + s_v} + V^{-1} r_{4R} \Theta \theta_{NH_3}\\
+        %===
+        -\theta_{NH_3} \lr{r_{4F}C_{NH_3} V + r_3 C_{O_2}V + r_{4R} + r_1 C_{NO} C_{O_2} V^2 } + r_{4F} C_{NH_3} V
+    }
+    + s_v \bm{C_{NO, in} \\ C_{NH_3, in} \\ 0}
+\end{align*}

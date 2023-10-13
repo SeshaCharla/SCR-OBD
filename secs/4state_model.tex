@@ -67,30 +67,35 @@ Where,
         &\begin{matrix*}[l]
         A_c &-& \text{Open frontal area of the catalyst}\\
         L_{cat} &-& \text{Length of the catalyst}\\
-        \epsilon &-& \text{efficiency factor}
+        \epsilon &-& \text{Void fraction}
         \end{matrix*}\\
 \end{align*}
 
 \subsubsection{Dynamic model}
 Using above assumptions and definitions, we have the dynamic model \cite{nova2014urea}:
-\begin{align*}
+\begin{equation} \label{eqn::4_state}
     \bm{\dot C_{NO} \\
         \dot C_{NO_2}\\
         \dot C_{NH_3}\\
         \dot \theta_{NH_3}\\
-        } &=
+        } =
     \bm{
         -r_1 C_{NO} C_{O_2} \theta_{NH_3} \Theta V
         - 0.5 r_2 C_{NO} C_{NO_2} \theta_{NH_3} \Theta V
         -r_5 C_{NO} C_{O_2} V
-        -s_v C_{NO}\\
+        -b C_{NO}\\
         %===
         -0.5 r_2 C_{NO} C_{NO_2} \theta_{NH_3} \Theta V
         + r_5 C_{NO} C_{O_2} V
-        -s_v C_{NO_2}\\
+        -b C_{NO_2}\\
         %===
-        -C_{NH_3} \lrb{\Theta r_{rF} \lr{1 - \theta_{NH_3}} + s_v} + V^{-1} r_{4R} \Theta \theta_{NH_3}\\
+        -C_{NH_3} \lrb{\Theta r_{rF} \lr{1 - \theta_{NH_3}} + b} + V^{-1} r_{4R} \Theta \theta_{NH_3}\\
         %===
+        -\theta_{NH_3} \lr{r_{4F}C_{NH_3} V + r_3 C_{O_2}V + r_{4R} + r_1 C_{NO} C_{O_2} V^2 + r_2 C_{NO} C_{NO_2} V^2} + r_{4F} C_{NH_3} V
     }
-    + s_v \bm{C_{NO, in} \\ C_{NO_2, in} \\ C_{NH_3} \\ 0}
+    + b \bm{C_{NO, in} \\ C_{NO_2, in} \\ C_{NH_3} \\ 0}
+\end{equation}
+Where,
+\begin{align*}
+    b = \frac{F}{V}
 \end{align*}
