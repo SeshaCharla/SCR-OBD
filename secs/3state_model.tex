@@ -1,5 +1,6 @@
-\subsection{3 state dynamic model}
-\subsubsection{Assumptions }
+\section{3 state dynamic model}
+\itbf{Assumptions }:
+
 The following are the additional assumptions along with the assumptions of
 4-state model that are used to arrive at the three-state dynamic model\cite{devarakonda2009model}:
 \begin{enumerate}
@@ -8,122 +9,94 @@ The following are the additional assumptions along with the assumptions of
     \begin{itemize}
         \item The commercially available $NO_x$ sensor (Horiba gas analyzer \cite{nova2014urea}) cannot differentiate between $NO$ and $NO_2$.
     \end{itemize}
+    \item Slow SCR reaction is neglected.
+    \begin{itemize}
+        \item The flow rate of the exhaust would ensure that the not a significant concentration of tail-pipe exhaust components are due to the slow SCR reaction \cite{nova2014urea}.
+    \end{itemize}
+    \item Mass transfer is neglected. That means the chemical kinetics in the catalyst are reaction controlled.
+    \begin{itemize}
+        \item The standard SCR reaction rate is faster than the flow rate of the exhaust fluids.
+    \end{itemize}
+    \item Nitrogen selectivity for ammonia oxidation is $100\%$.
+    \begin{itemize}
+        \item This assumption is relaxed by including algebraic relationship between selectivity and the temperature (ASC model \cite{jain2023diagnostics}).
+    \end{itemize}
+    \item Reaction rates are assumed to be a function of the gas phase concentration of $NO_x$ and ammonia storage.
 \end{enumerate}
-The above two assumptions result in the following:
+
+\itbf{Dynamic Model Derivation}:
+
+We have the mass (moles of reactants in/out) balance from the CSTR assumption:
 \begin{align*}
-    C_{NO_2} &= 0 \qquad C_{NO_2,  in} = 0\\
-    r_5 &= 0
-\end{align*}
-
-\subsubsection{Dynamic Model}
-Including the above assumptions in the 4-state dynamic model
-(\ref{eqn::4_state}):
-
-\begin{equation} \label{eqn::3_state}
-    \bm{\dot C_{NO} \\
-        \dot C_{NH_3}\\
-        \dot \theta_{NH_3}\\
-        } =
+    \bm{V \dot C_{NO}\\ V \dot C_{NH_3} \\ \dot M_{NH_3} } &=
     \bm{
-        -r_1 C_{NO} C_{O_2} \theta_{NH_3} \Theta V
-        -b C_{NO}\\
-        %===
-        -C_{NH_3} \lrb{\Theta r_{rF} \lr{1 - \theta_{NH_3}} + b} + V^{-1} r_{4R} \Theta \theta_{NH_3}\\
-        %===
-        -\theta_{NH_3} \lr{r_{4F}C_{NH_3} V + r_3 C_{O_2}V + r_{4R} + r_1 C_{NO} C_{O_2} V^2 } + r_{4F} C_{NH_3} V
-    }
-    + b \bm{C_{NO, in} \\ C_{NH_3, in} \\ 0}
+        -R_1 - F C_{NO}\\
+        -R_{4F} + R_{4R} - F C_{NH_3}\\
+        R_{4F} - R_{4R} - R_1 - R_3
+    } +
+    F \bm{1 & 0 \\ 0 & 1 \\ 0 & 0} \bm{ C_{NO, in} \\ C_{NH_3, in}}\\
+    % ===
+    \text{Let, } b &= \frac{F}{V}\\
+\end{align*}
+\begin{equation} \label{eqn::mass_balance}
+    %===
+    \bm{\dot C_{NO} \\  \dot C_{NH_3} \\ \dot M_{NH_3} } = \frac{1}{V}
+    \bm{
+        -R_1 - F C_{NO}\\
+        -R_{4F} + R_{4R} - F C_{NH_3}\\
+        R_{4F} - R_{4R} - R_1 - R_3
+    } +
+    b \bm{1 & 0 \\ 0 & 1 \\ 0 & 0} \bm{ C_{NO, in} \\ C_{NH_3, in}}\\
+    %===
 \end{equation}
 
-The following parameters are defined for convenience:
-\begin{align*}
-    \mat{
-    p_1 = r_1 C_{O_2} V
-    &p_2 =  \frac{r_{4R}}{V}
-    &p_3 = r_{4F} V
-    &p_4 = r_3 C_{O_2} V
-    &p_5 = r_1 C_{O_2} V^2
-    }
-\end{align*}
-\begin{align*}
-     \bm{\dot C_{NO} \\
-        \dot C_{NH_3}\\
-        \dot \theta_{NH_3}\\
-        } &=
-    \bm{
-        -p_1 C_{NO} \theta_{NH_3} \Theta
-        -b C_{NO}
-        \\
-        %===
-        -C_{NH_3} \lr{\Theta r_{4F} + b}
-        + r_{4F} \Theta C_{NH_3} \theta_{NH_3}
-        + p_2 \Theta \theta_{NH_3}
-        \\
-        %===
-        -p_3C_{NH_3} \theta_{NH_3}
-        -\lr{p_4 + r_{4R}} \theta_{NH_3}
-        -p_5 C_{NO} \theta_{NH_3}
-        + p_3 C_{NH_3}
-    }
-    + b \bm{C_{NO, in} \\ C_{NH_3, in} \\ 0}
-\end{align*}
-Defining the following coefficients of product of states and states:
-\begin{align*}
-    \text{Coefficients of product of states:} &\qquad& \text{Coefficients of states:}\\
-    \mat{             & C_{NO} & C_{NH_3} & \theta_{NH_3} \\
-        C_{NO}        &        & f_{12}   &        \\
-        C_{NH_3}      &        &          & f_{23} \\
-        \theta_{NH_3} & f_{31} & f_{32}   &}
-    &\qquad &
-    \mat{             & C_{NO} & C_{NH_3} & \theta_{NH_3} \\
-        C_{NO}        & g_1    &          &        \\
-        C_{NH_3}      &        & g_{2}    & g_{23}        \\
-        \theta_{NH_3} &        & g_{32}   & g_{3}}
-\end{align*}
-\begin{align*}
-    \mat{
-    \\f_{12} &=& p_1 \Theta    &=& r_1 C_{O_2} V \Theta
-    \\f_{23} &=& r_{4F} \Theta & &
-    \\f_{32} &=& p_3           &=& r_{4F} V
-    \\f_{31} &=& p_5           &=& r_1 C_{O_2} V^2}
-    \qquad \qquad
-    \mat{
-    \\ g_1    &=& b                      & &
-    \\ g_2    &=& \lr{\Theta r_{4F} + b} & &
-    \\ g_{3}  &=& p_4 + r_{4R}           &=& r_3 C_{O_2} V + r_{4R}
-    \\ g_{23} &=& p_2 \Theta             &=&  \frac{r_{4R}}{V} \Theta
-    \\ g_{32} &=& p_3                    &=& r_{4F} V
-    }
-\end{align*}
-\begin{equation*}
-     \bm{\dot C_{NO} \\
-        \dot C_{NH_3}\\
-        \dot \theta_{NH_3}\\
-        } =
-    \bm{
-        -f_{12} C_{NO} \theta_{NH_3}
-        -g_1 C_{NO}
-        \\
-        %===
-        -g_2 C_{NH_3}
-        + f_{23} C_{NH_3} \theta_{NH_3}
-        + g_{23} \theta_{NH_3}
-        \\
-        %===
-        -f_{32} C_{NH_3} \theta_{NH_3}
-        -g_3 \theta_{NH_3}
-        -f_{31} C_{NO} \theta_{NH_3}
-        + g_{32} C_{NH_3}
-    }
-    + b \bm{C_{NO, in} \\ C_{NH_3, in} \\ 0}
-\end{equation*}
+%===============================================================================
+\subsection{Dynamic Model with storage ratio $(\theta)$ as state}
 Let,
 \begin{align*}
-    x_1 &= C_{NO} &  u_1 &= C_{NO, in}\\
-    x_2 &= C_{NH_3} & u_2 &= C_{NH_3, in}\\
-    x_3 &= \theta_{NH_3} & &
+    \bm{x_1 \\ x_2 \\ x_3} = \bm{C_{NO} \\ C_{NH_3} \\ \theta} \qquad &
+    \bm{u_1 \\ u_2 } = \bm{C_{NO, in} \\ C_{NH_3, in}}
 \end{align*}
-\begin{equation}\label{eqn::parm_model}
+Rewriting eqn.~\ref{eqn::mass_balance}:
+\begin{equation}\label{eqn::3_state_theta}
+    \bm{\dot x_1 \\ \dot x_2 \\ \dot x_3} =
+    \bm{[k_1 \Theta] x_1 x_3 - b x_1 \\
+        -[k_{4F} \Theta] x_2 (1-x_3) + [k_{4R} V^{-1} \Theta] x_3 - b x_2 \\
+        +[k_{4F}V] x_2 (1-x_3) - [k_{4R}] x_3 - [k_1 V] x_1 x_3 - [k_3 ] x_3} +
+    b \bm{1 & 0 \\ 0 & 1 \\ 0 & 0} \bm{u_1 \\ u_2}\\
+\end{equation}
+
+The following parameters are defined for convenience, based on the coefficients
+of product of states and individual states in each of the equations:
+\begin{align*}
+    \text{Coefficients of product of states:} &\qquad& \text{Coefficients of states:}\\
+    \mat{   & x_1    & x_2      & x_3    \\
+        x_1 &        &          & f_{13} \\
+        x_2 &        &          & f_{23} \\
+        x_3 & f_{31} & f_{32}   &}
+    &\qquad &
+    \mat{    & x_1    & x_2      & x_3    \\
+        x_1  & g_1    &          &        \\
+        x_2  &        & g_{2}    & g_{23} \\
+        x_3  &        & g_{32}   & g_{3}}
+\end{align*}
+\begin{align*}
+    \mat{
+    \\f_{13} &=& k_1 \Theta
+    \\f_{23} &=& k_{4F} \Theta
+    \\f_{32} &=& k_{4F} V
+    \\f_{31} &=& k_1 V
+    }
+    \qquad \qquad
+    \mat{
+    \\ g_1    &=& b
+    \\ g_2    &=& b + k_{4F} \Theta
+    \\ g_{3}  &=& [k_{4R}+k_3]
+    \\ g_{23} &=& k_{4R} V^{-1} \Theta
+    \\ g_{32} &=& k_{4F} V
+    }
+\end{align*}
+\begin{equation}\label{eqn::parm_model_theta}
      \bm{\dot x_1 \\
         \dot x_2\\
         \dot x_3\\
@@ -146,10 +119,11 @@ Let,
     + b \bm{u_1 \\ u_2 \\ 0}
 \end{equation}
 
+\itbf{Note}: Some $f_{\bullet}\,'s, g_{\bullet}\,'s$ are algebraically related.
 
 \subsubsection{Small Perturbation model}
-We have the small-perturbation model from eqn.~\ref{eqn::parm_model}:
-\begin{equation}\label{eqn::sml_ptrb}
+We have the small-perturbation model from eqn.~\ref{eqn::parm_model_theta}:
+\begin{equation}\label{eqn::sml_ptrb_theta}
      \bm{\delta \dot x_1 \\
         \delta \dot x_2\\
         \delta \dot x_3\\
@@ -177,6 +151,150 @@ We have the small-perturbation model from eqn.~\ref{eqn::parm_model}:
 \end{equation}
 
 
+%===============================================================================
+
+%===============================================================================
+\subsection{Dynamic Model with molar storage ratio $(M_{NH_3})$ as state}
+Let,
+\begin{align*}
+    \bm{x_1 \\ x_2 \\ x_3} = \bm{C_{NO} \\ C_{NH_3} \\ M_{NH_3}} \qquad &
+    \bm{u_1 \\ u_2 } = \bm{C_{NO, in} \\ C_{NH_3, in}}
+\end{align*}
+Rewriting eqn.~\ref{eqn::mass_balance}:
+\begin{equation}\label{eqn::3_state_M}
+    \bm{\dot x_1 \\ \dot x_2 \\ \dot x_3} =
+    \bm{k_1 x_1 x_3 - b x_1 \\
+        -k_{4F}  x_2 (\Theta-x_3) + [k_{4R} V^{-1}] x_3 - b x_2 \\
+        +[k_{4F}V] x_2 (\Theta-x_3) - [k_{4R}] x_3 - [k_1V] x_1 x_3 - k_3 x_3} +
+    b \bm{1 & 0 \\ 0 & 1 \\ 0 & 0} \bm{u_1 \\ u_2}\\
+\end{equation}
+
+The following parameters are defined for convenience, based on the coefficients
+of product of states and individual states in each of the equations:
+\begin{align*}
+    \text{Coefficients of product of states:} &\qquad& \text{Coefficients of states:}\\
+    \mat{   & x_1    & x_2      & x_3    \\
+        x_1 &        &          & f_{13} \\
+        x_2 &        &          & f_{23} \\
+        x_3 & f_{31} & f_{32}   &}
+    &\qquad &
+    \mat{    & x_1    & x_2      & x_3    \\
+        x_1  & g_1    &          &        \\
+        x_2  &        & g_{2}    & g_{23} \\
+        x_3  &        & g_{32}   & g_{3}}
+\end{align*}
+\begin{align*}
+    \mat{
+    \\f_{13} &=& k_1
+    \\f_{23} &=& k_{4F}
+    \\f_{32} &=& k_{4F} \Theta
+    \\f_{31} &=& k_1 V
+    }
+    \qquad \qquad
+    \mat{
+    \\ g_1    &=& b
+    \\ g_2    &=& b + k_{4F} \Theta
+    \\ g_{3}  &=& k_{4R}+k_3
+    \\ g_{23} &=& k_{4R} V^{-1}
+    \\ g_{32} &=& k_{4F} V \Theta
+    }
+\end{align*}
+\begin{equation}\label{eqn::parm_model_M}
+     \bm{\dot x_1 \\
+        \dot x_2\\
+        \dot x_3\\
+        } =
+    \bm{
+        -f_{12} x_1 x_3
+        -g_1 x_1
+        \\
+        %===
+        -g_2 x_2
+        + f_{23} x_2 x_3
+        + g_{23} x_3
+        \\
+        %===
+        -f_{32} x_2 x_3
+        -g_3 x_3
+        -f_{31} x_1 x_3
+        + g_{32} x_2
+    }
+    + b \bm{u_1 \\ u_2 \\ 0}
+\end{equation}
+
+\itbf{Note}: Some $f_{\bullet}'s, g_{\bullet}'s$ are algebraically related.
+
+\subsubsection{Small Perturbation model}
+We have the small-perturbation model from eqn.~\ref{eqn::parm_model_M}:
+\begin{equation}\label{eqn::sml_ptrb_M}
+     \bm{\delta \dot x_1 \\
+        \delta \dot x_2\\
+        \delta \dot x_3\\
+        } =
+    \bm{
+        -\lr{g_1 + f_{12} x_{30}} &
+        0                                  &
+        -f_{12} x_{10}
+        \\
+        %===
+        0 &
+        -\lr{g_2 - f_{23} x_{30}} &
+        \lr{f_{23} x_{20}+ g_{23}}
+        \\
+        %===
+        -f_{31} x_{30}  &
+        g_{32} - f_{32} x_{30}&
+        -f_{32} x_{20} - g_3 - f_{31} x_{10}
+    }
+    \bm{\delta x_1\\
+        \delta x_2\\
+        \delta x_3\\
+        }
+    + b \bm{\delta u_1 \\ \delta u_2 \\ 0}
+\end{equation}
 
 
-%\input{secs/kaushal_model.tex}
+%===============================================================================
+\subsection{Parametrization w.r.t the choice of $x_3$}
+
+\begin{figure}[H]
+ \begin{align*}
+    \mat{
+    \\f_{13} &=& k_1 \Theta
+    \\f_{23} &=& k_{4F} \Theta
+    \\f_{32} &=& k_{4F} V
+    \\f_{31} &=& k_1 V
+    }
+    \qquad \qquad
+    \mat{
+    \\ g_1    &=& b
+    \\ g_2    &=& b + k_{4F} \Theta
+    \\ g_{3}  &=& [k_{4R}+k_3]
+    \\ g_{23} &=& k_{4R} V^{-1} \Theta
+    \\ g_{32} &=& k_{4F} V
+    }
+\end{align*}
+ \caption*{Parametrization if $x_3 = \theta_{NH_3}$}
+\end{figure}
+\begin{figure}[H]
+\begin{align*}
+    \mat{
+    \\f_{13} &=& k_1
+    \\f_{23} &=& k_{4F}
+    \\f_{32} &=& k_{4F} \Theta
+    \\f_{31} &=& k_1 V
+    }
+    \qquad \qquad
+    \mat{
+    \\ g_1    &=& b
+    \\ g_2    &=& b + k_{4F} \Theta
+    \\ g_{3}  &=& k_{4R}+k_3
+    \\ g_{23} &=& k_{4R} V^{-1}
+    \\ g_{32} &=& k_{4F} V \Theta
+    }
+\end{align*}
+\caption*{Parametrization if $x_3 = M_{NH_3}$}
+\end{figure}
+
+In the second parametrization $\Theta$ is only coefficient of $k_{4F}$. This can
+reduce the variance of estimation.

@@ -60,17 +60,34 @@
 \input{secs/intro.tex}
 %===============================================================================
 \newpage
-\input{secs/SCR_model.tex}
+\input{secs/SCR_reactions.tex}
+%===============================================================================
+\newpage
+\input{secs/urea_dosing.tex}
+%===============================================================================
+\newpage
+\input{secs/3state_model.tex}
+%===============================================================================
+\newpage
+\input{secs/adsorption_model.tex}
 %===============================================================================
 \newpage
 \input{secs/control_form.tex}
 % ==============================================================================
 \newpage
-\input{secs/time_scale.tex}
-% ==============================================================================
-\newpage
-\input{secs/catalyst_aging_factor.tex}
-% ==============================================================================
+\section{Appencix}
+\subsection{Logarithm Formulae}
+\begin{align*}
+    \log xy &= \log x + \log y\\
+    \frac{d}{dt} \log x &= \frac{\dot x}{x}
+\end{align*}
+Let, $L_x = \log x$
+\begin{align*}
+    \implies \log \dot L_x &= \log \dot x - \log x\\
+    \implies \log \dot x &= \log \dot L_x  + L_x
+\end{align*}
+\input{secs/4state_model.tex}
+\input{secs/kaushal_model.tex}
 \newpage
 \nocite{}
 \bibliographystyle{unsrt}

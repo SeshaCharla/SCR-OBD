@@ -1,0 +1,25 @@
+\section{Ammonia input (Urea Dosing) dynamics}
+The actual input to the system is urea from AdBlue ($32.5\%$ aqueous urea
+solution) injection that converted to ammonia (through reactions:
+(\ref{eqn::urea_1}), (\ref{eqn::urea_2}) and (\ref{eqn::urea_3})). This can be modelled by the following eqation \cite{nova2014urea}:
+\begin{align*}
+    \dot C_{NH_3, in} &= - \frac{1}{\tau} C_{NH_3, in} + 2 \frac{1}{\tau} \frac{ \eta u_{Adblue}}{N_{urea} F}\\
+    \text{where, } \quad &\\
+    \tau &- \text{Time constant}\\
+    u_{AdBlue} &- \text{Mass injection rate of the AdBlue solution}\\
+    \eta &- \text{Mass fraction of urea in the solution}\\
+    N_{urea} &- \text{Atomic number of urea}\\
+    F &- \text{Exhaust flow rate of the catalyst } m^3/s
+\end{align*}
+The above model is re-parametrized as follows:
+\begin{align*}
+    \dot C_{NH_3, in} &= \frac{1}{\tau} \lr{ -C_{NH_3, in} +\eta_{urea} C_{NH_3, ideal}} \\
+    \text{where, }\qquad &\\
+    \eta_{urea} &- \text{urea} \rightarrow NH_3 \text{ conversion efficiency}\\
+    \tau &- \text{urea} \rightarrow NH_3 \text{ time-constant}\\
+    C_{NH_3, ideal} &- \text{ideal $C_{NH_3, in}$ if $\eta_{urea} = 1$ (constant parameter obtained through calibration)}
+\end{align*}
+In the present work, $C_{NH_3, in}$ is considered as the input instead of AdBlue
+injection as its dynamics are completely decoupled from that of other states.
+Further, it is observed that AdBlue is completely converted to Ammonia at the
+very upstream part of the SCR catalyst \cite{hsieh2011development}.
