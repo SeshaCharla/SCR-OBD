@@ -6,7 +6,7 @@ measurement model (output) of the system:
     y &= C_{NO} + \chi C_{NH_3}
 \end{align*}
 
-We have the non-linear state-space model form eqn.~(\ref{eqn::parm_model}):
+We have the non-linear state-space model form eqn.~(\ref{eqn::parm_model_M}):
 \begin{equation}\label{eqn::ctrl_state}
     \bm{\dot x_1 \\
         \dot x_2\\
@@ -32,3 +32,30 @@ We have the non-linear state-space model form eqn.~(\ref{eqn::parm_model}):
 \begin{equation}\label{eqn::ctrl_out}
     y = x_1 + \chi x_2
 \end{equation}
+
+
+\subsection{Discrete form of the model}
+Let, $h$ be the sampling interval. Using Euler discretization:
+\begin{align*}
+    \bm{x_1[k+1] \\
+        x_2[k+1] \\
+        x_3[k+1] \\
+        } &=
+    \bm{
+        -hf_{12} x_1 x_3
+        -(hg_1-1) x_1
+        \\
+        %===
+        -(hg_2-1) x_2
+        + hf_{23} x_2 x_3
+        + hg_{23} x_3
+        \\
+        %===
+        - hf_{32} x_2 x_3
+        -(hg_3-1) x_3
+        - hf_{31} x_1 x_3
+        + hg_{32} x_2
+    }
+    + bh \bm{u_1 \\ u_2 \\ 0}\\
+    y[k] &= x_1[k] + \chi(T) x_2[k]
+\end{align*}
