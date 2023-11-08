@@ -87,6 +87,15 @@ In general, $E_a$ is several orders of magnitude greater than the other
 parameters. Thus, small change in temperature gets amplified as the change in
 the rate-constant.
 
+Also, we have the first-order tayer approximation for the rate-constant
+variation with temperature:
+\begin{align*}
+    k(T_0 + \delta T) &\approx k(T_0) + \frac{E_a}{RT_0^2} k(T_0) \delta T\\
+    k(\delta T) &\approx k_0 + p_0k_0 \delta T
+\end{align*}
+This form would be more amenable to parameter estimation despite introducing
+approximation errors.
+
 
 
 %===============================================================================
@@ -161,6 +170,9 @@ mass balance in control volume approach (CSTR) can be performed. For gaseous rea
 $$ M_g = C_g V \implies R_i = V r_i $$
 The number of moles of the adsorbant is directly considered instead of their
 surface concentrations.
+
+\item A lower order Tayler approximation is assumed to model the temperature
+effects in rate constant.
 \end{enumerate}
 
 \begin{enumerate}

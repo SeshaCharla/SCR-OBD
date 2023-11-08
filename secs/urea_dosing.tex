@@ -1,7 +1,7 @@
 \section{Ammonia input (Urea Dosing) dynamics}
-The actual input to the system is urea from AdBlue ($32.5\%$ aqueous urea
-solution) injection that converted to ammonia (through reactions:
-(\ref{eqn::urea_1}), (\ref{eqn::urea_2}) and (\ref{eqn::urea_3})). This can be modelled by the following eqation \cite{nova2014urea}:
+The actual input to the system is urea [from AdBlue ($32.5\%$ aqueous urea
+solution)] injection that converted to ammonia (through reactions:
+(\ref{eqn::urea_1}), (\ref{eqn::urea_2}) and (\ref{eqn::urea_3})). This can be modelled by the following equation \cite{nova2014urea}:
 \begin{align*}
     \dot C_{NH_3, in} &= - \frac{1}{\tau} C_{NH_3, in} + 2 \frac{1}{\tau} \frac{ \eta u_{Adblue}}{N_{urea} F}\\
     \text{where, } \quad &\\
@@ -21,5 +21,19 @@ The above model is re-parametrized as follows:
 \end{align*}
 In the present work, $C_{NH_3, in}$ is considered as the input instead of AdBlue
 injection as its dynamics are completely decoupled from that of other states.
-Further, it is observed that AdBlue is completely converted to Ammonia at the
+Further, it is observed that Urea is completely converted to Ammonia at the
 very upstream part of the SCR catalyst \cite{hsieh2011development}.
+
+
+\subsection{Dynamics based on reaction kinetics}
+
+The following reactions consititute the urea-dosing and ammonia conversion:
+\begin{align}
+    NH_2 - CO - NH_2 (liquid) &\longrightarrow NH_2 - CO - NH_2^* + x H_2 O
+                & &[\text{AdBlue evaporation}] \label{eqn::urea_1} \\
+    NH_2 - CO - NH_2^*  &\longrightarrow  HNCO + NH_3
+                & &[\text{Urea decomposition}] \label{eqn::urea_2}\\
+    HNCO + H_2O &\longrightarrow NH_3 + CO_2
+                & &[\text{Isocynic acid hydrolysis}] \label{eqn::urea_3}\\
+    %===
+\end{align*}
