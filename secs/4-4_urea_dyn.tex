@@ -2,7 +2,10 @@
 \subsection{Indroducing uread-dosing dyanmics}
 Using the parameetric model with $x_3 = M_{NH_3}$ and introducing urea dosing
 dyanmics from eqn.~\ref{eqn::urea_inj}. ($u_2$ becomes $x_4$.)
-
+\begin{align*}
+    \bm{x_1 \\ x_2 \\ x_3 \\ x_4} = \bm{C_{NO} \\ C_{NH_3} \\ M_{NH_3} \\ C_{NH_3, in}} \qquad &
+    \bm{u_1 \\ u_2 } = \bm{C_{NO, in} \\ u_{inj}}
+\end{align*}
 \begin{align*}
     \mat{
     \\f_{13} &=& k_1

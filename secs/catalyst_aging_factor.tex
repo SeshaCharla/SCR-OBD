@@ -39,7 +39,7 @@ reactions with internal dynamics and sensor corss-sensitivity
 \ref{eqn::ctrl_state}. Estimate the total molar
 Ammonia storage capacity of the catalyst [$\Theta(t, T)$]. Then,
 \begin{align*}
-    \implies a(t, T) &= \frac{\Theta(t, T)}{\Theta(0, T)}
+    a(t, T) &= \frac{\Theta(t, T)}{\Theta(0, T)} = a_1 + a_2 T
 \end{align*}
 
 
@@ -52,13 +52,10 @@ We have the following high-level steps in fault-diagnosis:
 \begin{enumerate}
     \item Estimate cross-sensitivity factor $\chi$.
     \item Estimate the lumped model parameters $f_{\bullet}, g_{\bullet}$.
-    \begin{itemize}
-        \item This requires an observer for ammonia storage fraction $\theta$.
-    \end{itemize}
     \item Using $f_{\bullet}, g_{\bullet}$, estimate $\Theta(t, T)$.
-\item Estimate $a(t, T)$ and propagate all the uncertainties down to $\delta_a$,
-the uncertainty in $\hat a$.
-\item Check for no-fault condition:
+\item Estimate $a(t, T)$ and propagate all the uncertainties down to
+$\delta_{a}$, the uncertainty in $\hat a$.
+    \item Check for no-fault condition:
 \begin{align*}
     \hat a(t, T) \pm \delta_a > a_{min} \quad \forall T \in [T_{min}, T_{max}]
 \end{align*}
