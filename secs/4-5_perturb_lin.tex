@@ -1,8 +1,78 @@
-\subsection{Perturbation model w.r.t temperature}
-The perturbation model w.r.t temperature would bring down the change in
+\subsection{Perturbation Models}
+The perturbation model would bring down the change in
 temperature from exponent to the algebriac form. We have the first-order tayler
 approximation of rate constant:
 \begin{align*}
-    k(T_0 + \delta T) &\approx k(T_0) + \frac{E_a}{RT_0^2} k(T_0) \delta T\\
-    k(\delta T) &\approx k_0 + p_0k_0 \delta T
+    k(\bar T + \delta T) &\approx k(\bar T) + \frac{E_a}{R\bar T^2} k(\bar T) \delta T\\
+    \delta k &\approx p \bar k \delta T\\
+    \text{Where,} \quad &\\
+    p &= \frac{E_a}{RT_0^2}
+\end{align*}
+Introducing the above approximation into the lumped parameters from eqn.\ref{eqn::full_nonlinear}:
+\begin{align*}
+    f_{13} &= k_1 \quad&
+    \implies \bar f_{13} &= \bar k_{1}, \quad&
+    \delta f_{13} &= p_{1} \bar k_{1} \delta T\\
+    %===
+    f_{23} &= k_{4F} \quad &
+    \implies \bar f_{23} &= \bar k_{4F}, \quad &
+    \delta f_{23} &= p_{4F} \bar k_{4F} \delta T\\
+    %===
+    f_{32} &= k_{4F} \Theta \quad &
+    \implies \bar f_{32} &= \bar k_{4F} \bar \Theta, \quad &
+    \delta f_{32} &= p_{32}  \bar k_{32} \bar \Theta \delta T   +  \bar k_{4F} \delta \Theta
+    \\
+    f_{31} &= k_1 V \quad &
+    \implies \bar f_{31} &= \bar k_1 V \quad &
+    \delta f_{31} &= p_1 \bar k_1 V \delta T
+    \\
+    f_{24} &= b_v F
+    \quad &
+    \implies \bar f_{24} &= b_v \bar F
+    \quad &
+    \delta f_{24} &= b_v \delta F
+    \\
+    g_1    &= b_v F
+    \quad &
+    \implies \bar g_1 &= b_v \bar F
+    \quad &
+    \delta g_1 &= b_v \delta F
+    \\
+    g_2    &= b_v F + k_{4F} \Theta
+    \quad &
+    \implies \bar g_2 &= b_v \bar F + \bar k_{4F} \bar \Theta
+    \quad &
+    \delta g_2 &= b_v \delta F +  p_{32}  \bar k_{32} \bar \Theta \delta T   +  \bar k_{4F} \delta \Theta
+    \\
+    g_{3}  &= k_{4R}+k_3
+    \quad &
+    \implies \bar g_3 &= \bar k_{4R} + \bar k_3
+    \quad &
+    \delta g_3 &= \lr{ p_{4R} \bar k_{4R} + p_3 \bar k_3} \delta T
+    \\
+    g_{23} &= k_{4R} b_v
+    \quad &
+    \implies \bar g_{23} &= \bar k_{4R} b_v
+    \quad &
+    \delta g_{23} &= p_{4R} \bar k_{4R} b_v  \delta T
+    \\
+    g_{32} &= k_{4F} V \Theta
+    \quad &
+    \implies \bar g_{32} &= \bar k_{4F} b_v
+    \quad &
+    \delta g_{32} &= p_{4F} \bar k_{4F} b_v  \delta T
+    \\
+    g_4 &= \omega_u
+    \\
+    b_{11} &= b_v F
+    \quad &
+    \implies \bar b_{11} &= b_v \bar F
+    \quad &
+    \delta b_{11} &= b_v \delta F
+    \\
+    b_{42} &= \frac{\omega_u b_u}{F}
+    \quad &
+    \implies \bar b_{42} &= \frac{\omega_u b_u}{\bar F}
+    \quad &
+    \delta b_{42} &= -\frac{\omega_u b_u}{\bar F^2} \delta F
 \end{align*}
