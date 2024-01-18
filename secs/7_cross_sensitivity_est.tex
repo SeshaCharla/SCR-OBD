@@ -1,4 +1,4 @@
-\section{$NO_x$ Sensor Cross-sensitivity Estimation}
+\section{$NO_x$ sensor cross-sensitivity Estimation \label{sec::cross}}
 
 The sensor cross-sensitivity $\chi$ can be estimated using the FTIR (Fourier
 transform infrared) sensor data ($x_1$) along with the actual sensor measrement
@@ -43,13 +43,14 @@ tail end of the data can fitting the change linearly with time.
 \subsection{Effect of $NH_3$ sensor bias and minimum threshold for cross-sensitivity}
 
 The ammonia sensor used for ammonia measurement also has bias and there is a
-threshold for ammonia sensor for cross-sensitivity to be effective. Thus the
-expression for cross-sensitivity becomes:
+threshold on ammonia for which the $NO_x$ sensor becomes cross-sensitive to
+ammonia. Thus the expression for cross-sensitivity becomes:
+
 \begin{align*}
     y_1 &= \lr{x_1 - b_0} + \chi (x_2 - b_{th})\\
 \end{align*}
 
-\subsubsection{Least-squares estimation}
+\subsection{Least-squares estimation assuming temperature independence}
 \itbf{Assumption}: The temperature changes in RMC cycle don't effect the
 cross-sensitivity factor significantly. Thus, it can be treated as a constant
 w.r.t temperature fluctuations in that range.
@@ -88,11 +89,11 @@ For simplicity, $\chi$ is assumed to be a linear function of temperature.
     \chi(T) &= a T - b_T
 \end{align*}
 
-\subsection{Least-squares estimation}
+\subsection{Least-squares estimation with temperature dependence}
 Assuming the sensor-bias is not time-varying ($\because$ $b_1$ is small). The
 sensor bias, cross-sensitivity threshold and temperature dependence can be
 combined into:
-We have,
+
 \begin{align*}
     y_1 &=  \lr{x_1 - b_0} + \lr{aT - b_{T}} \lr{x_2 - b_{th}}\\
     \lr{y_1 - x_1} &= a T x_2 - a b_{th} T - b_{T} x_2 + (b_T b_{th} - b_0)\\
@@ -126,3 +127,6 @@ We have,
     \end{minipage}
         \caption{Effect of temperature on prediction errors for $\chi$ estimation in RMC cycles}
 \end{figure}
+
+
+Introducing temperature clearly decreased the prediction error in the model. However, the reduction in error, while noticeable, is not significant when compared to the temperature-independent model, whose error remains within acceptable limits.
