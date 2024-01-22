@@ -1,0 +1,21 @@
+\section{Linearized Model Identification}
+
+\subsection{Transfer function estimation approach}
+Since we have uncorrupted measurement data for $NO_x$ and $NH_3$ and all the
+inputs at any given time, part of the state-to-input transfer function matrix
+can be estimated using this data. The state-space model form
+section-\ref{eqn::lin_model} into frequency domain, the model structure would
+be:
+\begin{align*}
+    \bm{\delta x_1 \\ \delta x_2 \\ \hline \delta  x_3 \\ \delta x_4} &= \bm{G_{11} & G_{12} & G_{13} & G_{14}\\
+                G_{21} & G_{22} & G_{23} & G_{24}\\
+                \hline
+                G_{31} & G_{32} & G_{33} & G_{34}\\
+                G_{41} & G_{42} & G_{43} & G_{44}\\
+    }
+    \bm{\delta u_1 \\ \delta u_2 \\ \delta T \\ \delta F}
+\end{align*}
+
+With the given data, $G_{1i}'s, G_{2i}'s$ can be estimated. The presumption of
+this approach is that we should be able to get estimates of most of the required
+parameters from these two rows.
