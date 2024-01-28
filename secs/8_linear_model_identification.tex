@@ -1,4 +1,15 @@
 \section{Linearized Model Identification}
+The linearized model derived previously can be used for model parameter
+identification. The idea is to identify the lumped linear model parameters and
+then use this information to arrive at the estimates for the relevant parameters
+for prediction/aging-factor estimation purposes. The following are assumed
+apriori :
+
+\begin{enumerate}
+\item Few of the lumped parameters of the linearized model are enough for
+obtaining the necessary model parameters.
+\item These lumped parameters can be estimated using the data.
+\end{enumerate}
 
 \subsection{Transfer function estimation approach}
 Since we have uncorrupted measurement data for $NO_x$ and $NH_3$ and all the
@@ -19,3 +30,5 @@ be:
 With the given data, $G_{1i}'s, G_{2i}'s$ can be estimated. The presumption of
 this approach is that we should be able to get estimates of most of the required
 parameters from these two rows.
+
+\input{secs/8-1-1_TransferFuncModel.tex}
